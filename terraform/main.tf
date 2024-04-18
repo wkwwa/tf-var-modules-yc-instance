@@ -23,9 +23,9 @@ provider "yandex" {
   zone      = "ru-central1-a"
 }
 
-data "template_file" "user_data" {
-  template = file("../scripts/add-ssh-web-app.yaml")
-}
+# data "template_file" "user_data" {
+#  template = file("../scripts/add-ssh-web-app.yaml")
+#}
 
 resource "yandex_compute_instance" "vm-1" {
   name = "chapter7-lesson2-std-006-10"
@@ -56,9 +56,9 @@ resource "yandex_compute_instance" "vm-1" {
   # Метаданные машины:
   # здесь можно указать скрипт, который запустится при создании ВМ
   # или список SSH-ключей для доступа на ВМ
-  # metadata = {
-  #    ssh-keys = "ansible:${file("~/.ssh/id_rsa.pub")}"
-  # }
+  metadata = {
+    ssh-keys = "ansible:${file("~/.ssh/id_rsa.pub")}"
+  }
 
 }
 
