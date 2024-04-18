@@ -3,8 +3,8 @@ users:
   - name: ansible
     gecos: ansible
     primary_group: ansible
-    sudo: 'ALL=(ALL) NOPASSWD:ALL'
     groups: sudo
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
     shell: /bin/bash
     ssh_import_id:
     lock_passwd: false
