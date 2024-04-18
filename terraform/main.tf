@@ -57,7 +57,9 @@ resource "yandex_compute_instance" "vm-1" {
   # здесь можно указать скрипт, который запустится при создании ВМ
   # или список SSH-ключей для доступа на ВМ
   metadata = {
-    ssh-keys = "ansible:${file("~/.ssh/id_rsa.pub")}"
+    user-data = "${file("../scripts//meta.txt")}"
+
+    # ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 
 }
