@@ -28,7 +28,7 @@ provider "yandex" {
 #}
 
 resource "yandex_compute_instance" "vm-1" {
-  name = "chapter7-lesson2-std-006-10"
+  name = "chapter7-practice1-std-006-10"
 
   # Конфигурация ресурсов:
   # количество процессоров и оперативной памяти
