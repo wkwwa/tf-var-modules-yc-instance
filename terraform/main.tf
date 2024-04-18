@@ -24,7 +24,7 @@ provider "yandex" {
 }
 
 # data "template_file" "user_data" {
-#  template = file("../scripts/add-ssh-web-app.yaml")
+#  template = file("../terraform/scripts/add-ssh-web-app.yaml")
 #}
 
 resource "yandex_compute_instance" "vm-1" {
@@ -59,7 +59,7 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
     user-data = "${file("../terraform/scripts//meta.txt")}"
 
-    # ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 
 }
