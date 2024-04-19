@@ -52,9 +52,9 @@ resource "yandex_compute_instance" "vm-1" {
   # здесь можно указать скрипт, который запустится при создании ВМ
   # или список SSH-ключей для доступа на ВМ
   metadata = {
-    ssh-keys = ansible:${file("~/.ssh/id_rsa.pub")}"
+    # ssh-keys = ansible:${file("~/.ssh/id_rsa.pub")}"
     user-data = "${file("../terraform/meta.txt")}"
-}
+  }
 }
 
 output "ip_address" {
