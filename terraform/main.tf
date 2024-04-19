@@ -24,12 +24,11 @@ provider "yandex" {
 }
 
 # data "template_file" "user_data" {
-#  template = file("../terraform/scripts/add-ssh-web-app.yaml")
-#}
+#  template = file("../terraform/scripts/meta.yaml")
+# }
 
 resource "yandex_compute_instance" "vm-1" {
   name = "chapter7-practice1-std-006-10"
-
   # Конфигурация ресурсов:
   # количество процессоров и оперативной памяти
   resources {
@@ -57,11 +56,10 @@ resource "yandex_compute_instance" "vm-1" {
   # здесь можно указать скрипт, который запустится при создании ВМ
   # или список SSH-ключей для доступа на ВМ
   metadata = {
-    user-data = "${file("../terraform/scripts//meta.txt")}"
+    # user-data = "${file("../terraform/scripts//meta.txt")}"
 
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
-  }
-
+    ssh-keys = ansible:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCtONBRZZb3Ot5KXGZtNT6OE5/FYs2tCZV3KmaMYk4bDTjZEBmPJYz3Py39JnR8P+UHDF0H+VHDK+I3CE5c3hUEFqBBh2ICEAndx4A3GVtdClfkHqgPMlb8tjjfV5rRO5rT8ukbPZfl1VUpQEvt4grxvzRjoTToV3MGLQ9VvYevI6vmwcai2ss9/8ZHMjQrTShCiZVjObEDASABxDm9CvlKUQbAgfMgXd0JsQw/h/PqinSn02gBQ5f8vTjxU/6Lm+sJbvhgkQBFhVv2fkpkTCGqT0n4tBWLv8vg9jpiNFhfv5YJFcEvyDzafIBsxLejCHnoqGYrAwxjnkcQnWmB6npPek4uCtrCj/XKPBvTPXQoA3nktgHlvyt9tm+gpZ4/WcFR+gwI+kWNQRBg43E7yNLk7rjMFSZwKXSq6+c4t4GX4dL0jbr4TOsDza/rjnKnqd+P9TFBl5bJqRCnuh+EXkUrJS8nSz4/f2m2spkt16AOmxE9ReLkeJJvRnGRiF5OjyE= student@fhm12iutaehd83piugpu
+}
 }
 
 output "ip_address" {
