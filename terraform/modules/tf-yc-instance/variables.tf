@@ -12,7 +12,7 @@ variable "image_id" {
 variable "instance_zone" {
   description = "instance default zone"
   type        = string
-  default     = "ru-central1-a"
+  default     = "ru-central1-b"
 }
 variable "instance_cores" {
   description = "instance core resources"

@@ -2,7 +2,6 @@ resource "yandex_compute_instance" "vm-1" {
   name = "chapter7-practice1-std-006-10" 
   platform_id = var.platform_id
   zone = var.instance_zone
-# var.instance_zone 
 
 # Конфигурация ресурсов:
   # количество процессоров и оперативной памяти
@@ -25,8 +24,9 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
  network_interface {
-    subnet_id = "e9bfsi41ajqfhjbbmulg"
-    nat       = false
+    subnet_id = "e2lgbprrdei1u1ute7pa"
+    nat       = true
+   # nat_ip_address = module.tf-yc-network.yandex_vpc_address.ip_address_public.external_ipv4_address.0.address
   }
 
   metadata = {

@@ -7,3 +7,11 @@ data "yandex_vpc_subnet" "default" {
 
   name = "${data.yandex_vpc_network.default.name}-${each.key}"
 }
+
+resource "yandex_vpc_address" "ip_address_public" {
+  name = "ip_address_public"
+
+  external_ipv4_address {
+    zone_id = "ru-central1-a"
+  }
+}
