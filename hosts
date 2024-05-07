@@ -1,5 +1,5 @@
-[staging_servers]
-localhost ansible_host=10.129.0.21 ansible_user=ansible
+[dev]
+localhost ansible_host=10.129.0.12 ansible_user=ansible
 # This is the default ansible 'hosts' file.
 #
 # It should live in /etc/ansible/hosts

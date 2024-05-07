@@ -5,19 +5,27 @@
     update_cache: yes
   become: true
 
-- name: Install nodejs package
+  #- name: Install nodejs package
+  #become: true
+  #apt:
+  # name: nodejs
+  # state: present
+  # update_cache: yes
+
+- name: curl nodejs repo update
+  shell: "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -"
   become: true
-  apt:
-    name: nodejs
-    state: present
-    update_cache: yes
+
+- name: nodejs install
+  shell: "apt install nodejs -y"
+  become: true
   
-- name: Install npm package 
-  become: true
-  apt:
-    name: npm
-    state: present
-    update_cache: yes
+  #- name: Install npm package 
+  #become: true
+  #apt:
+  # name: npm
+  # state: present
+  # update_cache: yes
 
 - name: http-server install
   shell: "npm install -g http-server"
@@ -43,10 +51,10 @@
 - name: Download sausage-store-frontend.tar.gz 
   become: true
   ansible.builtin.get_url:
-    url: "https://nexus.praktikum-services.tech/repository/std-006-10-frontend/sausage-store-frontend.tar.gz"
+    url: "{{ nexus_artifacts_url }}"
     dest: "/var/www-data"
-    url_username: "std-ext-006-10"
-    url_password: "7Ee8Y5xo"
+    url_username: "{{ nexus_user }}"
+    url_password: "{{ nexus_password }}"
     mode: 0755
 
 - name: Unarchive a file 

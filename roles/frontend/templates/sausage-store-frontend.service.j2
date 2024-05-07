@@ -2,8 +2,8 @@
 Description=Sausage Store Frontend Web Service
 
 [Service]
-User=www-data
-ExecStart=http-server /var/www-data/frontend -p 80 --proxy http://localhost:8080
+User={{ frontend_service_user }}
+ExecStart=http-server {{ frontend_lib_directory }} -p 80 --proxy http://localhost:8080
 Restart=on-failure
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 

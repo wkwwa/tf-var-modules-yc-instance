@@ -2,7 +2,7 @@
 ---
 - name: Run the equivalent of "apt-get update"
   apt:
-     update_cache: yes
+    update_cache: yes
   become: true
 
 - name: Install Java package (Ubuntu/Debian)
