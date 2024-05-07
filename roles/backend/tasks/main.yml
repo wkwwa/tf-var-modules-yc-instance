@@ -1,0 +1,89 @@
+# В нашей автоматизации список из четырёх задач
+---
+- name: Run the equivalent of "apt-get update"
+  apt:
+     update_cache: yes
+  become: true
+
+- name: Install Java package (Ubuntu/Debian)
+  become: true
+  apt:
+    name: openjdk-17-jre-headless
+    state: present
+    update_cache: yes
+
+- name: Install Python3-pip
+  become: true
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Install Python3-lxml
+  become: true
+  apt:
+    name: python3-lxml
+    state: present
+    update_cache: yes
+
+- name:
+  become: true
+  user:
+    name: "jarservice"
+    create_home: no
+    shell: /sbin/nologin
+
+- name: сreate directory
+  become: true
+  file:
+    path: "/opt/sausage-store/backend"
+    mode: 0755
+    owner: jarservice
+    group: jarservice
+    state: directory
+    recurse: yes
+
+- name: сreate directory
+  become: true
+  file:
+    path: "/opt/sausage-store/reports"
+    mode: 0755
+    owner: jarservice
+    group: jarservice
+    state: directory
+    recurse: yes
+
+- name:
+  become: true
+  maven_artifact:
+    dest: "/opt/sausage-store/backend/sausage-store.jar"
+    repository_url: "https://nexus.praktikum-services.tech/repository/std-006-10-backend/"
+    username: "std-ext-006-10"
+    password: "7Ee8Y5xo"
+    group_id: "com.yandex.practicum.devops"
+    artifact_id: "sausage-store"
+    version: "0.0.1-20240409.205847-11"
+
+- name: Set File Rights sausage-store.jar
+  file:
+    path: "/opt/sausage-store/backend/sausage-store.jar"
+    owner: jarservice
+    group: jarservice
+    mode: 0755
+
+- name:
+  become: true
+  template:
+    src: sausage-store-backend.service.j2
+    dest: /etc/systemd/system/backend.service
+
+- name:
+  become: true
+  systemd:
+    daemon_reload: yes
+
+- name:
+  become: true
+  service:
+    name: backend
+    state: started

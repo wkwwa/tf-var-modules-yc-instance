@@ -1,0 +1,5 @@
+ansible_connection: ssh
+backend_maven_version: 0.1.0
+backend_service_user: jarservice
+backend_report_directory: /opt/sausage-store/reports
+backend_lib_directory: /opt/sausage-store/backend
