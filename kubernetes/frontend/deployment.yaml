@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: frontend
   labels:
-    app: backend
+    app: frontend
 spec:
   replicas: 3
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
@@ -13,15 +13,15 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       labels:
-        app: backend
+        app: frontend
     spec:
       containers:
-        - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1595704
+        - name: frontend
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend:1.0.1595703
           imagePullPolicy: IfNotPresent
           env:
             - name: VAULT_HOST
@@ -31,9 +31,14 @@ spec:
                 secretKeyRef:
                   name: vault
                   key: vault_token
+            - name: NGINX_CONF
+              valueFrom:
+                configMapKeyRef:
+                  name: nginx-conf
+                  key: nginx.conf
           ports:
-            - name: backend
-              containerPort: 8080
+            - name: frontend
+              containerPort: 80
           livenessProbe:
             httpGet:
               path: /actuator/health
@@ -49,14 +54,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: frontend
   labels:
-    app: backend
+    app: frontend
 spec:
   type: ClusterIP
   ports:
-    - port: 8080
+    - port: 80
       protocol: TCP
-      targetPort: 8080
+      targetPort: 80
   selector:
-    app: backend
+    app: frontend
