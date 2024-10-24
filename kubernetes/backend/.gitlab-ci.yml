@@ -10,7 +10,7 @@ variables:
 stages:
   - deploy
 
-deploy-frontend:
+deploy-backend:
   stage: deploy
   image: bitnami/kubectl:1.30.3
   environment:
@@ -25,7 +25,7 @@ deploy-frontend:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
+    - 
     - ssh ${DEV_USER}@${DEV_HOST};
-    - scp 
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - kubectl apply -f frontend
+    - kubectl apply -f backend

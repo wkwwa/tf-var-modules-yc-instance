@@ -24,6 +24,36 @@ spec:
           image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1595704
           imagePullPolicy: IfNotPresent
           env:
+            - name: PSQL_URL
+              valueFrom:
+                secretKeyRef:
+                  name: psql-secret
+                  key: psql-url
+            - name: PSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: psql-secret
+                  key: psql-user
+            - name: PSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: psql-secret
+                  key: psql-password
+            - name: MONGO_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-url
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
             - name: VAULT_HOST
               value: http://127.0.0.1:8200/
             - name: VAULT_TOKEN
@@ -44,19 +74,3 @@ spec:
             failureThreshold: 6
       imagePullSecrets:
         - name: docker-config-secret
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  labels:
-    app: backend
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8080
-      protocol: TCP
-      targetPort: 8080
-  selector:
-    app: backend
