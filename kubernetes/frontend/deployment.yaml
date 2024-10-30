@@ -21,16 +21,9 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend:1.0.1595703
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend:latest
           imagePullPolicy: IfNotPresent
           env:
-            - name: VAULT_HOST
-              value: http://127.0.0.1:8200/
-            - name: VAULT_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: vault
-                  key: vault_token
             - name: NGINX_CONF
               valueFrom:
                 configMapKeyRef:

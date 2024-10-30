@@ -18,11 +18,14 @@ spec:
     metadata:
       labels:
         app: backend
+
     spec:
+      imagePullSecrets:
+        - name: docker-config-secret
       containers:
         - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1595704
-          imagePullPolicy: IfNotPresent
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1606217
+          imagePullPolicy: Always
           env:
             - name: PSQL_URL
               valueFrom:
@@ -54,13 +57,6 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: mongo-password
-            - name: VAULT_HOST
-              value: http://127.0.0.1:8200/
-            - name: VAULT_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: vault
-                  key: vault_token
           ports:
             - name: backend
               containerPort: 8080
@@ -72,5 +68,3 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 1
             failureThreshold: 6
-      imagePullSecrets:
-        - name: docker-config-secret
