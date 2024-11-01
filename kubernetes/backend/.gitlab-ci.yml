@@ -8,8 +8,7 @@ deploy-k8s-backend:
     name: production/backend
   script:
     - mkdir -p ~/.kube
-    - cat kubernetes/config | base64 -d > ~/.kube/config
-    - cat ~/.kube/config 
+    - cat kubernetes/config | base64 -d > ~/.kube/config 
     - chmod 600 ~/.kube/config
     - kubectl apply -f kubernetes/backend/secrets.yaml
     - rm -f ~/.kube/config
