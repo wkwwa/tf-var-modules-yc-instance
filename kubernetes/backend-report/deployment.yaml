@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: backend-report
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report:1.0.1595705
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report:1.0.1612332
           imagePullPolicy: IfNotPresent
           env:
           ports:

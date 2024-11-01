@@ -1,21 +1,17 @@
 stages:
   - deploy
 
-deploy-frontend:
+deploy-k8s-backend:
   stage: deploy
   image: bitnami/kubectl:1.30.3
   environment:
-    name: production/frontend
-  before_script:
-    - apk add docker-cli-compose openssh-client bash
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 600 ~/.ssh
-    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
+    name: production/backend
   script:
-    - scp -r ./frontend ${DEV_USER}@${DEV_HOST}:/home/${DEV_USER}/kuber/frontend
-    - ssh ${DEV_USER}@${DEV_HOST};
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - kubectl apply -f backend
+    - mkdir -p ~/.kube
+    - echo -n "$KUBECONFIG" | base64 -d > ~/.kube/config
+    - chmod 600 ~/.kube/config
+    - kubectl apply -f kubernetes/frontend/deployment.yaml
+    - kubectl apply -f kubernetes/frontend/configmap.yaml
+    - kubectl apply -f kubernetes/frontend/ingress.yaml
+    - kubectl apply -f kubernetes/frontend/service.yaml
+    - rm -f ~/.kube/config
