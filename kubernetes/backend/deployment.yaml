@@ -32,31 +32,6 @@ spec:
                 secretKeyRef:
                   name: psql-secret
                   key: psql-url
-            - name: PSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: psql-secret
-                  key: psql-user
-            - name: PSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: psql-secret
-                  key: psql-password
-            - name: MONGO_URL
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo-url
-            - name: MONGO_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo-user
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-secret
-                  key: mongo-password
           ports:
             - name: backend
               containerPort: 8080
