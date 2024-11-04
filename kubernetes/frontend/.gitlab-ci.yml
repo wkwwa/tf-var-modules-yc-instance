@@ -5,7 +5,7 @@ deploy-k8s-frontend:
   stage: deploy
   image: bitnami/kubectl:1.30.3
   environment:
-    name: production/backend
+    name: production/frontend
   script:
     - mkdir -p ~/.kube
     - cat kubernetes/config | base64 -d > ~/.kube/config 

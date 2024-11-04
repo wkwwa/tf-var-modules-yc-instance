@@ -6,7 +6,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 3
+  replicas: 1
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
   # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
   strategy:
@@ -24,14 +24,36 @@ spec:
         - name: docker-config-secret
       containers:
         - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1612331
-          imagePullPolicy: Always
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1612687
+          imagePullPolicy: IfNotPresent
           env:
-            - name: PSQL_URL
+            - name: VAULT_HOST
+              value: http://std-ext-006-38.praktikum-services.tech:8200/
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vault
+                  key: vault_token
+
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://rc1a-zinvlo2snmixqvg6.mdb.yandexcloud.net:6432/std-ext-006-10?ssl=true
+            - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: psql-secret
-                  key: psql-url
+                  key: psql-user
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: psql-secret
+                  key: psql-password
+
+            - name: SPRING_DATA_MONGODB_URI
+              value: mongodb://std-ext-006-10:Testusr1234@rc1a-yj97x7y7tq8wtm3q.mdb.yandexcloud.net:27018/std-ext-006-10?tls=true
+
+            - name: REPORT_PATH
+              value: /var/www-data/htdocs
+
           ports:
             - name: backend
               containerPort: 8080
