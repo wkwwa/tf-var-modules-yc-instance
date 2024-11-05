@@ -1,0 +1,18 @@
+stages:
+  - deploy
+
+deploy-k8s-frontend:
+  stage: deploy
+  image: bitnami/kubectl:1.30.3
+  environment:
+    name: production/frontend
+  script:
+    - mkdir -p ~/.kube
+    - cat kubernetes/config | base64 -d > ~/.kube/config 
+    - chmod 600 ~/.kube/config
+    - kubectl apply -f kubernetes/frontend/secrets.yaml
+    - kubectl apply -f kubernetes/frontend/deployment.yaml
+   # - kubectl apply -f kubernetes/frontend/configmap.yaml
+    - kubectl apply -f kubernetes/frontend/ingress.yaml
+    - kubectl apply -f kubernetes/frontend/service.yaml
+    - rm -f ~/.kube/config
