@@ -24,7 +24,7 @@ spec:
         - name: docker-config-secret
       containers:
         - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1612687
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1620411
           imagePullPolicy: IfNotPresent
           env:
             - name: VAULT_HOST
