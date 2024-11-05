@@ -37,19 +37,3 @@ spec:
             failureThreshold: 6
       imagePullSecrets:
         - name: docker-config-secret
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-report
-  labels:
-    app: backend-report
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8082
-      protocol: TCP
-      targetPort: 8082
-  selector:
-    app: backend-report
