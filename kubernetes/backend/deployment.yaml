@@ -36,7 +36,7 @@ spec:
                   key: vault_token
 
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://rc1a-zinvlo2snmixqvg6.mdb.yandexcloud.net:6432/std-ext-006-10?ssl=true
+              value: jdbc:postgresql://rc1a-zinvlo2snmixqvg6.mdb.yandexcloud.net:6432/std-ext-006-10?ssl=true&sslrootcert=YandexInternalRootCA.crt
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
