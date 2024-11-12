@@ -21,30 +21,28 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend:1.0.1612333
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend:1.0.1634643
           imagePullPolicy: IfNotPresent
           env:
-            - name: VAULT_HOST
-              value: http://127.0.0.1:8200/
-            - name: VAULT_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: vault
-                  key: vault_token
             - name: NGINX_CONF
               valueFrom:
                 configMapKeyRef:
                   name: nginx-conf
                   key: nginx.conf
+                  
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-url
+
+            - name: REPORT_PATH
+              value: /tmp
+
           ports:
             - name: frontend
               containerPort: 80
 
-          volumeMounts:
-            - name: nginx-conf
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
-              readOnly: true
           livenessProbe:
             httpGet:
               path: /actuator/health
@@ -53,12 +51,6 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 1
             failureThreshold: 6
-      volumes:
-        - name: nginx-conf
-          configMap:
-            name: nginx-conf
-            items:
-              - key: nginx.conf
-                path: nginx.conf
+
       imagePullSecrets:
         - name: docker-config-secret

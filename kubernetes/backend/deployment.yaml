@@ -24,16 +24,9 @@ spec:
         - name: docker-config-secret
       containers:
         - name: backend
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1620789
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend:1.0.1632303
           imagePullPolicy: IfNotPresent
           env:
-            - name: VAULT_HOST
-              value: http://std-ext-006-38.praktikum-services.tech:8200/
-            - name: VAULT_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: vault
-                  key: vault_token
 
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://rc1a-zinvlo2snmixqvg6.mdb.yandexcloud.net:6432/std-ext-006-10?ssl=true
@@ -47,12 +40,15 @@ spec:
                 secretKeyRef:
                   name: psql-secret
                   key: psql-password
-
+            
             - name: SPRING_DATA_MONGODB_URI
-              value: mongodb://std-ext-006-10:Testusr1234@rc1a-yj97x7y7tq8wtm3q.mdb.yandexcloud.net:27018/std-ext-006-10?tls=true
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-url
 
             - name: REPORT_PATH
-              value: /var/www-data/htdocs
+              value: /tmp
 
           ports:
             - name: backend
