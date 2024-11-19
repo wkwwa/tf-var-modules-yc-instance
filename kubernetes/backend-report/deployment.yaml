@@ -6,7 +6,7 @@ metadata:
   labels:
     app: backend-report
 spec:
-  replicas: 3
+  replicas: 1
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
   # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
   strategy:
@@ -21,9 +21,17 @@ spec:
     spec:
       containers:
         - name: backend-report
-          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report:1.0.1623842
+          image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report:1.0.1652135
           imagePullPolicy: IfNotPresent
           env:
+            - name: REPORT_PATH
+              value: /tmp
+
+            - name: REPORTS_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-report
+                  key: mongo-report-url
           ports:
             - name: backend-report
               containerPort: 8082
