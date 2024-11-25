@@ -5,7 +5,7 @@ deploy-k8s-backend-report:
   stage: deploy
   image: bitnami/kubectl:1.30.3
   environment:
-    name: production/frontend
+    name: production/backend-report
   script:
     - mkdir -p ~/.kube
     - cat kubernetes/config | base64 -d > ~/.kube/config 
@@ -13,4 +13,6 @@ deploy-k8s-backend-report:
     - kubectl apply -f kubernetes/backend-report/secrets.yaml
     - kubectl apply -f kubernetes/backend-report/deployment.yaml
     - kubectl apply -f kubernetes/backend-report/service.yaml
+    - kubectl apply -f kubernetes/backend-report/hpa.yaml
+    - kubectl get pods --output=wide
     - rm -f ~/.kube/config

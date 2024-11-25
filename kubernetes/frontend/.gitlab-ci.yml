@@ -15,4 +15,5 @@ deploy-k8s-frontend:
     - kubectl apply -f kubernetes/frontend/configmap.yaml
     - kubectl apply -f kubernetes/frontend/ingress.yaml
     - kubectl apply -f kubernetes/frontend/service.yaml
+    - kubectl get pods --output=wide
     - rm -f ~/.kube/config
