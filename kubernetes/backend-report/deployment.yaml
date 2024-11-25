@@ -7,6 +7,7 @@ metadata:
     app: backend-report
 spec:
   replicas: 1
+  revisionHistoryLimit: 12
   # Стратегия развёртывания. Recreate — удалит сначала все старые Pod'ы
   # Есть и более гибкая стратегии, например, RollingUpdate, которая будет обновлять Pod'ы порциями
   strategy:
@@ -19,10 +20,29 @@ spec:
       labels:
         app: backend-report
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - backend-report
+                topologyKey: "kubernetes.io/hostname"
       containers:
         - name: backend-report
           image: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report:1.0.1652135
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: 0.1
+            limits:
+              memory: "1025Mi"
+              cpu: 0.2
           env:
             - name: REPORT_PATH
               value: /tmp
@@ -37,7 +57,7 @@ spec:
               containerPort: 8082
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: actuator/health
               port: 8082
             initialDelaySeconds: 15
             periodSeconds: 30

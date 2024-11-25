@@ -13,4 +13,7 @@ deploy-k8s-backend:
     - kubectl apply -f kubernetes/backend/secrets.yaml
     - kubectl apply -f kubernetes/backend/deployment.yaml
     - kubectl apply -f kubernetes/backend/service.yaml
+    - kubectl apply -f kubernetes/backend/vpa.yaml
+    - kubectl get pods --output=wide
+    - kubectl get vpa backend -o jsonpath='{.status.recommendation}'
     - rm -f ~/.kube/config
