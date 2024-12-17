@@ -1,0 +1,26 @@
+stages:
+  - build
+  - deploy
+
+build-helm-chart:
+  image: alpine/helm:3
+  stage: build
+  script: 
+    - helm package ./kubernetes/sausage-store-chart
+    - cd /builds/std-ext-006-10/infrastructure/
+    - curl -u ${NEXUS_REPO_USER}:${NEXUS_REPO_PASS} http://nexus.praktikum-services.tech/repository/Helm-std-ext-006-10/ --upload-file sausage-store-chart-0.1.0.tgz
+
+deploy-helm-chart:
+  stage: deploy
+  image: alpine/helm:3
+  environment:
+    name: test
+  script:
+    - mkdir -p ~/.kube
+    - cat kubernetes/config | base64 -d > ~/.kube/config 
+    - chmod 600 ~/.kube/config
+    - helm repo add helm-std-ext-006-10 ${NEXUS_HELM_REPO} --username ${NEXUS_REPO_USER} --password ${NEXUS_REPO_PASS}
+    - helm repo update
+    - helm repo list
+    - helm install helm-std-ext-006-10 helm-std-ext-006-10/sausage-store-chart --version 0.1.0
+    - rm -f ~/.kube/config
