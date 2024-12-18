@@ -1,20 +1,20 @@
 global:
   psqlSecret:
-    psqlDatabase: jdbc:postgresql://rc1a-zinvlo2snmixqvg6.mdb.yandexcloud.net:6432/std-ext-006-10?ssl=true
-    psqlUser: c3RkLWV4dC0wMDYtMTA=
-    psqlPassword: VGVzdHVzcjEyMzQ=
+    psqlDatabase: ${psqlDatabase}
+    psqlUser: ${psqlUser}
+    psqlPassword: ${psqlPassword}
 
   mongoSecret:
-    mongoUrl: bW9uZ29kYjovL3N0ZC1leHQtMDA2LTEwOlRlc3R1c3IxMjM0QHJzMDEvcmMxYS15ajk3eDd5N3RxOHd0bTNxLm1kYi55YW5kZXhjbG91ZC5uZXQ6MjcwMTgvc3RkLWV4dC0wMDYtMTA/dGxzPXRydWU=
+    mongoUrl: ${mongoUrl}
 
   dockerConfigSecret:
-    dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXRsYWIucHJha3Rpa3VtLXNlcnZpY2VzLnJ1OjUwNTAiOiB7CgkJCSJhdXRoIjogImMzUmtMV1Y0ZEMwd01EWXRNVEE2V1dNdFRrVTJaR1ZGUVhGV2FtUktlSHBLU25nPSIKCQl9Cgl9Cn0K
+    dockerconfigjson: ${dockerconfigjson}
 
   reportPath:
     path: /tmp
 
   mongoReport:
-    mongoReportUrl: bW9uZ29kYjovL3N0ZC1leHQtMDA2LTEwOlRlc3R1c3IxMjM0QHJjMWEteWo5N3g3eTd0cTh3dG0zcS5tZGIueWFuZGV4Y2xvdWQubmV0OjI3MDE4L3N0ZC1leHQtMDA2LTEwP3Rscz10cnVlJnRsc0FsbG93SW52YWxpZENlcnRpZmljYXRlcz10cnVlCg==
+    mongoReportUrl: ${mongoReportUrl}
 
 backend:
   replicaCount: 1
