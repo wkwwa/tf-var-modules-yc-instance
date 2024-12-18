@@ -23,5 +23,5 @@ deploy-helm-chart:
     - helm repo update
     - helm repo list
     #- helm install helm-std-ext-006-10 helm-std-ext-006-10/sausage-store-chart --version 0.1.0 --atomic --timeout 15m
-    - helm upgrade std-ext-006-10 helm-std-ext-006-10/sausage-store-chart --install std-ext-006-10 --set environment=test --atomic --timeout 15m
+    - helm upgrade --install std-ext-006-10 --set environment=test --atomic --timeout 15m std-ext-006-10 helm-std-ext-006-10/sausage-store-chart 
     - rm -f ~/.kube/config
