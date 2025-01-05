@@ -21,7 +21,8 @@ backend:
   image:
     repository: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend
     pullPolicy: IfNotPresent
-    tag: "1.0.1632303"
+    tag: "1.0.1737146"
+    #tag: "1.0.1632303" 
 
   imagePullSecrets:
     - name: docker-config-secret
@@ -82,7 +83,8 @@ frontend:
   image:
     repository: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-frontend
     pullPolicy: IfNotPresent
-    tag: "1.0.1641051"
+    tag: "1.0.1737145"
+    #tag: "1.0.1641051"
 
   imagePullSecrets:
     - name: docker-config-secret
@@ -175,7 +177,8 @@ backend-report:
   image:
     repository: gitlab.praktikum-services.ru:5050/std-ext-006-10/sausage-store/sausage-backend-report
     pullPolicy: IfNotPresent
-    tag: "1.0.1652135"
+    tag: "1.0.1737147"
+    #tag: "1.0.1652135"
 
   imagePullSecrets:
     - name: docker-config-secret
