@@ -1,0 +1,6 @@
+rate(sausage_orders_total{type="$sausage_moloch"}[5m]) 
+rate(sausage_orders_total{type="$sausage_nuren"}[5m]) 
+rate(sausage_orders_total{type="$sausage_sliv"}[5m])
+rate(sausage_orders_total{type="$sausage_osob"}[5m]) 
+rate(sausage_orders_total{type="$sausage_amer"}[5m])
+rate(sausage_orders_total{type="$sausage_munch"}[5m])
