@@ -1,0 +1,37 @@
+---
+groups:
+  - name: Sausage store rules
+    rules:
+      - alert: InstanceDown
+        expr: up{app_kubernetes_io_name="backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          project: "sausage_store"
+          component: "Backend"
+      - alert: SuccessfulPOSTrequests
+        expr: histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{method="POST", status=~"2..", uri="/actuator/orders"}[5m])) by (le)) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          project: "sausage_store"
+          component: "Backend"
+        annotations:
+          summary: "Successful POST requests to /api/orders"
+          description: "Успешных POST-запросов к /api/orders, задержка более 100ms для 95 перцентиля в течение 5 минут"
+      - alert: HighError500
+        expr: http_server_requests_seconds_count{status="500"}
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate (status 500)"
+          description: "Код ошибки 500"
+      - alert: HighAnyError
+        expr: rate(http_server_requests_seconds_count{uri="/actuator/prometheus", status=~"5..|4.."}[2m])
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate /actuator/prometheus"
+          description: "Оповещения для /actuator/prometheus с любым кодом ошибки за временной промежуток в две минуты"
