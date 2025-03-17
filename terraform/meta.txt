@@ -1,0 +1,22 @@
+#cloud-config
+datasource:
+  Ec2:
+    strict_id: false
+ssh_pwauth: no
+
+users:
+  - default
+  - name: ubuntu
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-rsa AAAA... user@fhm12iutaehd83piugpu
+
+  - name: ansible
+    gecos: ansible
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    groups: sudo
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAA... user@fhm12iutaehd83piugpu
