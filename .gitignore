@@ -1,3 +1,0 @@
-*.vault*
-*.terraform.lock.hcl
-*.terraform/
