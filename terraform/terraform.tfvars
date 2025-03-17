@@ -1,4 +1,4 @@
-token = "t1.9euelZqVicqey52Xy8vMls_Jz5WWle3rnpWayJWUm5qPy5TNzMybnJOLk5bl8_cuGVJO-e8lNx5q_d3z9yYLUk757yU3Hmr9zef1656Vmp2SycuRxpCTnM7KzsiZz56Q7_zF656Vmp2SycuRxpCTnM7KzsiZz56QveuelZqexonJnJPMmJ6Tk8qKyJPLk7XrhpzRlp6S0ZCPmpGWm9KMmo2Jmo0.VMUWqsr_7FyxzOH8LbP-YojuiibdEhDChZ3rzId6SDDeAPR9lVNYkzKLBbF1vtU_-joOeZ80kAKD2NVl6tu8Cw"
-instance_zone = "ru-central1-b"
-instance_cloud = "b1g3jddf4nv5e9okle7p"
-instance_folder = "b1gmkburmg469kko92tq" 
+token           = ""
+instance_zone   = "ru-central1-b"
+instance_cloud  = ""
+instance_folder = ""
